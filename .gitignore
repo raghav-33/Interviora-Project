@@ -1,0 +1,71 @@
+# =========================
+# Credentials & Secrets
+# =========================
+# NEVER COMMIT API KEYS
+.env
+.env.*
+!.env.example
+ai-interview-frontend/.env
+ai-interview-frontend/.env.*
+
+# =========================
+# Virtual Environment
+# =========================
+# Your specific virtual environment folder
+carrercoach/
+
+# Standard Python virtual environments (just in case)
+venv/
+env/
+.venv/
+
+# =========================
+# Generated Media & Audio Folders
+# =========================
+# Ignore the contents of your audio folders, but keep the directories themselves
+# (Remove the '*' if you want to ignore the folders entirely)
+answer_audio/*
+!answer_audio/.gitkeep
+
+audio_outputs/*
+!audio_outputs/.gitkeep
+
+# Ignore loose audio files in root
+*.wav
+*.mp3
+
+# =========================
+# React Frontend (Node.js)
+# =========================
+ai-interview-frontend/node_modules/
+ai-interview-frontend/build/
+ai-interview-frontend/dist/
+ai-interview-frontend/.pnp
+ai-interview-frontend/.pnp.js
+ai-interview-frontend/coverage/
+
+# =========================
+# Python
+# =========================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Jupyter Notebooks checkpoints
+.ipynb_checkpoints/
+
+# =========================
+# OS & Misc Files
+# =========================
+# Ignore Windows shortcuts like 'Music - Shortcut.lnk'
+*.lnk
+
+# macOS/Windows system files
+.DS_Store
+Thumbs.db
+
+# IDEs and Editors
+.vscode/
+.idea/
