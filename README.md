@@ -1,27 +1,30 @@
-🚀 Interviora — AI-Powered Interview Platform
+```markdown
+# 🚀 Interviora — AI-Powered Interview Platform
 
 **Interviora** is a full-stack AI application that transforms a Job Description into a complete mock interview experience using voice interaction and structured AI feedback. It simulates real interviews by generating questions, capturing spoken answers, and evaluating performance using LLMs.
 
-**🎯 Features
+---
 
-**📄 Job Description Analyzer**: Extracts role, skills, and responsibilities automatically.
-**🤖 AI Interview Question Generator**: Generates role-specific interview questions.
-**🎙️ Voice-Based Interview**: Answer questions using real-time speech recognition.
-**🔄 Auto Question Flow**: Seamless progression between questions.
-**🧠 AI Feedback System**: Provides a Score (0–100), Strengths, Areas for improvement, and a Final verdict.
-**⚡ Multi-Agent Workflow**: Powered by **LangGraph** for structured AI pipelines.
-**🌐 Full Stack Integration**: React frontend + FastAPI backend.
+## 🎯 Features
 
-**🏗️ Architecture Overview
-Frontend (React)
-        ↓
-FastAPI Backend
-        ↓
-LangGraph Workflow (AI Agents)
-        ↓
-LLM (Groq / Llama)
+*   **📄 Job Description Analyzer**: Extracts role, skills, and responsibilities automatically.
+*   **🤖 AI Interview Question Generator**: Generates role-specific interview questions.
+*   **🎙️ Voice-Based Interview**: Answer questions using real-time speech recognition.
+*   **🔄 Auto Question Flow**: Seamless progression between questions.
+*   **🧠 AI Feedback System**: Provides a Score (0–100), Strengths, Areas for improvement, and a Final verdict.
+*   **⚡ Multi-Agent Workflow**: Powered by **LangGraph** for structured AI pipelines.
+*   **🌐 Full Stack Integration**: React frontend + FastAPI backend.
 
+---
 
+## 🏗️ Architecture Overview
+
+```mermaid
+graph TD
+    A[React Frontend] --> B[FastAPI Backend]
+    B --> C[LangGraph Workflow]
+    C --> D[LLM - Groq / Llama]
+```
 
 ### 🔄 Workflow
 1. User inputs Job Description.
