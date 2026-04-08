@@ -1,3 +1,6 @@
+No problem! I’ve removed the Mermaid diagram and simplified the formatting to ensure it renders perfectly on GitHub without any weird spacing issues or "bad formatting" like in your screenshot.
+
+```markdown
 # 🚀 Interviora — AI-Powered Interview Platform
 
 **Interviora** is a full-stack AI application that transforms a Job Description into a complete mock interview experience using voice interaction and structured AI feedback. It simulates real interviews by generating questions, capturing spoken answers, and evaluating performance using LLMs.
@@ -53,3 +56,72 @@ AI_CAREER_COACH/
 │
 ├── .env
 └── testing1.py
+```
+
+---
+
+## ⚙️ Setup Instructions
+
+### 1. Clone Repository
+```bash
+git clone [https://github.com/your-username/interviora.git](https://github.com/your-username/interviora.git)
+cd interviora
+```
+
+### 2. Backend Setup
+```bash
+cd ai_interview_backend
+pip install -r requirements.txt
+```
+**Create a `.env` file:**
+```env
+GROQ_API_KEY=your_api_key
+```
+**Run server:**
+```bash
+uvicorn main:app --reload
+```
+
+### 3. Frontend Setup
+```bash
+cd ai_interview_frontend
+npm install
+npm run dev
+```
+
+---
+
+## 🧪 API Endpoints
+
+- `POST /start-interview`: Initializes the session and generates questions.
+- `POST /submit-answer`: Processes the user's spoken answer.
+- `POST /next-question`: Fetches the next question in the queue.
+- `POST /generate-feedback`: Triggers the final evaluation agent.
+
+---
+
+## ⚠️ Challenges Faced
+
+- Handling structured LLM outputs reliably with Pydantic.
+- Managing state across multi-agent workflows in LangGraph.
+- Debugging speech recognition timing and browser compatibility.
+- Ensuring smooth real-time communication between React and FastAPI.
+
+---
+
+## 🚀 Future Improvements
+
+- 📊 **Analytics Dashboard**: Visual performance tracking over time.
+- 🗂️ **History**: Save and review past interview sessions.
+- 🔐 **Auth**: User authentication and secure profiles.
+- ☁️ **Deployment**: Hosting on Vercel and AWS/Render.
+
+---
+
+## 📜 License
+This project is open-source and available under the **MIT License**.
+
+## 💡 Author
+**Raghav Devgan**  
+*Building AI-powered systems* 🚀
+```
