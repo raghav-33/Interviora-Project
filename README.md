@@ -1,6 +1,3 @@
-No problem! I’ve removed the Mermaid diagram and simplified the formatting to ensure it renders perfectly on GitHub without any weird spacing issues or "bad formatting" like in your screenshot.
-
-```markdown
 # 🚀 Interviora — AI-Powered Interview Platform
 
 **Interviora** is a full-stack AI application that transforms a Job Description into a complete mock interview experience using voice interaction and structured AI feedback. It simulates real interviews by generating questions, capturing spoken answers, and evaluating performance using LLMs.
@@ -56,9 +53,6 @@ AI_CAREER_COACH/
 │
 ├── .env
 └── testing1.py
-```
-
----
 
 ## ⚙️ Setup Instructions
 
