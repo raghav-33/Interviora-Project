@@ -24,7 +24,7 @@ app.add_middleware(
 )
 
 # ---------------- WHISPER MODEL ----------------
-whisper_model = whisper.load_model("base")
+whisper_model = whisper.load_model("base") # convert spoken language into written text
 
 # ---------------- IN-MEMORY SESSION STORE ----------------
 INTERVIEW_SESSIONS = {}
@@ -36,6 +36,7 @@ class JDRequest(BaseModel):
 class NextQuestionRequest(BaseModel):
     session_id: str
     index: int
+    
 class InterviewFeedback(BaseModel):
     score: int = Field(description="Score from 0 to 100")
     strengths: List[str]
@@ -86,6 +87,7 @@ def next_question(data: NextQuestionRequest):
     }
 
 # ---------- SUBMIT ANSWER (VOICE) ----------
+# Now Not Using Whisper For Speect to text Conversion (Shift to Web Speech API)
 """@app.post("/submit-answer")
 async def submit_answer(
     audio: UploadFile = File(...),
@@ -107,6 +109,7 @@ async def submit_answer(
         "transcription": transcription
     }
 """
+
 from fastapi import Body
 
 @app.post("/submit-answer")
@@ -128,7 +131,7 @@ async def submit_answer(
     }
 
 
-    # 🔥 STORE ANSWER
+    #  STORE ANSWER
     session.setdefault("user_answers", [])
     session["user_answers"].append(transcription)
 
