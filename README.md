@@ -28,7 +28,7 @@ The system follows a modern AI agent architecture:
 
 ## 🧠 Tech Stack
 
-- **AI Layer**: LangChain, LangGraph, Groq (Llama models), Pydantic
+- **AI Layer**: LangChain, LangGraph, Groq (Llama model 3.3-70b), Pydantic
 - **Backend**: FastAPI, Python, Dotenv
 - **Frontend**: React.js, Web Speech API
 
