@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from "react";
+import UserCamera from "./UserCamera";
+
 
 function Interview({ sessionId, questions }) {
   const [index, setIndex] = useState(0);
@@ -163,6 +165,8 @@ function Interview({ sessionId, questions }) {
   // 🎤 INTERVIEW SCREEN
   return (
     <div style={styles.container}>
+      <UserCamera />
+      
       <h2>Question {index + 1} / {questions.length}</h2>
 
       <div style={styles.questionBox}>
