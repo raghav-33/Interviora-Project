@@ -1,7 +1,6 @@
 from langgraph.graph import StateGraph, START, END
 from typing import TypedDict, List, Optional, Annotated
 import operator
-
 from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
 from dotenv import load_dotenv
@@ -25,8 +24,6 @@ class InterviewQuestions(BaseModel):
 
 
 
-
-
 # -------------------------------
 # LLM Setup
 # -------------------------------
@@ -43,17 +40,13 @@ questions_llm = llm.with_structured_output(InterviewQuestions)
 
 class JDState(TypedDict):
     job_description: str
-
     role: str
     experience_level: str
     required_skills: List[str]
     responsibilities: List[str]
-
     questions: List[str]
-
     user_answers: Annotated[List[str], operator.add]
     
-
 
 # -------------------------------
 # Nodes
@@ -96,10 +89,6 @@ def interview_question_node(state: JDState) -> JDState:
 
     return {"questions": result.questions}
 
-
-
-
-
 # -------------------------------
 # Graph Definitions
 # -------------------------------
@@ -114,7 +103,6 @@ graph.add_edge("jd_analyzer_node", "interview_question_node")
 graph.add_edge("interview_question_node", END)
 
 workflow = graph.compile()
-
 
 # -------------------------------
 # Compile Workflow
