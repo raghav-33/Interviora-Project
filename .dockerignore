@@ -1,0 +1,21 @@
+# Ignore the raw frontend folder (we only need the dist folder inside backend)
+ai-interview-frontend/
+
+answer_audio/
+audio_outputs/
+
+# Ignore Python cache files
+__pycache__/
+
+# Ignore virtual environments
+venv/
+env/
+carrercoach/
+
+# NEVER upload your .env file! Put those keys in Hugging Face Settings instead.
+.env
+
+README.md
+testing1.py
+testingCoach.ipynb
+.gitignore

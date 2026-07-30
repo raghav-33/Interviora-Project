@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import UserCamera from "./UserCamera";
 
-
 function Interview({ sessionId, questions }) {
   const [index, setIndex] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
@@ -61,35 +60,34 @@ function Interview({ sessionId, questions }) {
     setRecording(true);
   };
 
-  // ⏹ Stop Recording (UPDATED VERSION)
+  // ⏹ Stop Recording & Submit Answer
   const stopRecording = async () => {
     recognitionRef.current.stop();
     setRecording(false);
 
     if (!transcript.trim()) {
-      alert("Please speak something.");
+      alert("Please speak something before stopping.");
       return;
     }
 
     try {
       setLoadingNext(true);
+      console.log(`[Frontend] Submitting answer for session: ${sessionId}`);
 
-      // ✅ Send TEXT directly to backend
       await fetch("http://127.0.0.1:8000/submit-answer", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           session_id: sessionId,
           answer: transcript
         })
       });
 
+      console.log("[Frontend] Answer submitted successfully. Loading next question...");
       await loadNextQuestion();
 
     } catch (error) {
-      console.error(error);
+      console.error("[Frontend] Error submitting answer:", error);
     } finally {
       setLoadingNext(false);
     }
@@ -97,41 +95,75 @@ function Interview({ sessionId, questions }) {
 
   // 👉 Load Next Question
   const loadNextQuestion = async () => {
-    const res = await fetch("http://127.0.0.1:8000/next-question", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        session_id: sessionId,
-        index: index + 1
-      })
-    });
+    console.log(`[Frontend] Requesting next question. Next index should be: ${index + 1}`);
+    
+    try {
+      const res = await fetch("http://127.0.0.1:8000/next-question", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          session_id: sessionId,
+          index: index + 1
+        })
+      });
 
-    const data = await res.json();
+      const data = await res.json();
+      console.log("[Frontend] Backend responded to next-question with:", data);
 
-    if (data.done) {
-      setInterviewDone(true);
-      await generateFeedback();
-      return;
+      if (data.done) {
+        console.log("[Frontend] Backend says interview is done! Triggering feedback phase...");
+        setInterviewDone(true);
+        await generateFeedback(); 
+        return;
+      }
+
+      setIndex(data.index);
+      setCurrentQuestion(data.question);
+      setTranscript("");
+    } catch (error) {
+      console.error("[Frontend] Error loading next question:", error);
     }
-
-    setIndex(data.index);
-    setCurrentQuestion(data.question);
-    setTranscript("");
   };
 
   // 🔥 Generate Feedback
   const generateFeedback = async () => {
-    const formData = new FormData();
-    formData.append("session_id", sessionId);
+    console.log(`[Frontend] Preparing to send feedback request for session: ${sessionId}`);
+    
+    try {
+      const res = await fetch("http://127.0.0.1:8000/generate-feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ session_id: sessionId })
+      });
 
-    const res = await fetch("http://127.0.0.1:8000/generate-feedback", {
-      method: "POST",
-      body: formData
-    });
+      console.log("[Frontend] Feedback request sent. Waiting for AI...");
 
-    const data = await res.json();
-    setFeedback(data.feedback);
+      if (!res.ok) {
+        throw new Error(`Server responded with status: ${res.status}`);
+      }
+
+      const data = await res.json();
+      console.log("[Frontend] Feedback received successfully!", data);
+      setFeedback(data.feedback);
+      
+    } catch (error) {
+      console.error("[Frontend] CRITICAL ERROR fetching feedback:", error);
+      alert("The frontend failed to fetch the feedback. Check the browser console (F12).");
+      setInterviewDone(false); // Remove loading screen so user isn't stuck
+    }
   };
+
+  // ⏳ LOADING SCREEN
+  if (interviewDone && !feedback) {
+    return (
+      <div style={styles.container}>
+        <h2>🔄 Generating your AI feedback...</h2>
+        <p style={{ color: "#94a3b8", marginTop: "10px" }}>
+          Our AI Manager is evaluating your responses. This will take a few seconds.
+        </p>
+      </div>
+    );
+  }
 
   // 🎉 FEEDBACK SCREEN
   if (interviewDone && feedback) {
@@ -226,6 +258,7 @@ const styles = {
     padding: "30px",
     borderRadius: "16px",
     marginTop: "20px",
+    textAlign: "left",
   },
   button: {
     marginTop: "25px",
