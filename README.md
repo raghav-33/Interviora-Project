@@ -198,7 +198,6 @@ This approach is used for:
 **Frontend**
 - React.js
 - Web Speech API
-- Fetch API
 
 **Evaluation**
 - LangSmith
