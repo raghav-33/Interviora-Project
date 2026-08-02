@@ -19,7 +19,7 @@ langchain-google-genai
 elevenlabs
 SpeechRecognition
 PyAudio
-numpy==2.3.3
+numpy==2.2.6
 openai-whisper
 torch
 ffmpeg-python
