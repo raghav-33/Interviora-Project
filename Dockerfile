@@ -1,5 +1,5 @@
 # 1. Start with a lightweight version of Python
-FROM python:3.11-slim
+FROM python:3.10-slim
 
 # 2. Create a standard user. 
 # Hugging Face Spaces requires this for security (User ID 1000)
