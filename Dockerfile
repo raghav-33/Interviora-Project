@@ -16,15 +16,14 @@ WORKDIR $HOME/app
 # 5. Copy your requirements file first
 # We do this first because Docker caches steps. If you change your code 
 # but not your requirements, Docker won't have to reinstall everything.
-COPY --chown=user:user backend/requirements.txt ./
+COPY --chown=user:user requirements.txt ./
 
 # 6. Install all the Python packages (FastAPI, LangGraph, etc.)
 RUN pip install --no-cache-dir -r requirements.txt
 
 # 7. Copy your entire backend folder into the container
 # This automatically includes your main.py, vector DB file, 
-# and the compiled React 'dist' folder you pasted inside!
-COPY --chown=user:user backend/ ./backend/
+COPY --chown=user:user . .
 
 # 8. Open port 7860. Hugging Face Spaces always looks for this exact port.
 EXPOSE 7860
