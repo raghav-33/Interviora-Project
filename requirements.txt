@@ -6,9 +6,7 @@ langchain-huggingFace
 langgraph
 langchain-text-splitters
 python-dotenv
-Flask
 requests 
-scipy
-SpeechRecognition
 numpy==2.2.6
-ffmpeg-python
+fastapi
+uvicorn
