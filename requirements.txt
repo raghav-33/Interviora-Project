@@ -7,10 +7,8 @@ langgraph
 langchain-text-splitters
 python-dotenv
 Flask
-requests
-sounddevice 
+requests 
 scipy
 SpeechRecognition
-PyAudio
 numpy==2.2.6
 ffmpeg-python
