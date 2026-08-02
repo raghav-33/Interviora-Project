@@ -1,6 +1,9 @@
 import { useState } from "react";
 import Interview from "./Interview";
 
+// 🌐 Your live Render backend URL
+const API_BASE_URL = "https://interviora-project.onrender.com";
+
 function JDInput() {
   const [jd, setJd] = useState("");
   const [loading, setLoading] = useState(false);
@@ -9,7 +12,8 @@ function JDInput() {
   const startInterview = async () => {
     setLoading(true);
 
-    const res = await fetch("http://127.0.0.1:8000/start-interview", {
+    // 🔄 Updated to use Render URL
+    const res = await fetch(`${API_BASE_URL}/start-interview`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ job_description: jd })
