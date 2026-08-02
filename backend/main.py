@@ -98,6 +98,7 @@ async def submit_answer(
     }
 
 #************************************ Generate Feedback Route ************************************************
+#************************************ Generate Feedback Route ************************************************
 @app.post("/generate-feedback")
 async def generate_feedback(data: FeedbackRequest):
     print(f"\n WAKING UP FEEDBACK NODE FOR SESSION: {data.session_id}")
@@ -117,30 +118,25 @@ async def generate_feedback(data: FeedbackRequest):
 
     print(" AI is generating feedback... (This takes a few seconds)")
     
-    '''
     try:
+        # Run the feedback node directly
         new_state_data = feedback_node(state)
         print(" Feedback generated successfully!")
     except Exception as e:
         print(f" SEVERE ERROR inside feedback_node: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
-    workflow.update_state(config, {"feedback": new_state_data["feedback"]})
+    # Fallback safety check to ensure feedback is structured dictionary
+    feedback_content = new_state_data.get("feedback")
+    if isinstance(feedback_content, str):
+        try:
+            feedback_content = json.loads(feedback_content)
+        except:
+            pass
+
+    workflow.update_state(config, {"feedback": feedback_content})
     print("Feedback securely saved to LangGraph memory.")
     
     return {
-        "feedback": new_state_data["feedback"]
-    }'''
-    async def event_stream():
-        try:
-            # Re-invoke the graph. Your route_start router will automatically 
-            # read the state and direct the flow straight to feedback_node.
-            async for event in workflow.astream(None, config, stream_mode="updates"):
-                if "feedback_node" in event:
-                    node_output = event["feedback_node"]
-                    yield json.dumps({"feedback": node_output["feedback"]}) + "\n"
-        except Exception as e:
-            print(f"[3] 💥 SEVERE ERROR during streaming: {str(e)}")
-            yield json.dumps({"error": str(e)}) + "\n"
-
-    return StreamingResponse(event_stream(), media_type="application/x-ndjson")
+        "feedback": feedback_content
+    }
