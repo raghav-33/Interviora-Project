@@ -1,6 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import UserCamera from "./UserCamera";
 
+// 🌐 Your live Render backend URL
+const API_BASE_URL = "https://interviora-project.onrender.com";
+
 function Interview({ sessionId, questions }) {
   const [index, setIndex] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
@@ -74,7 +77,8 @@ function Interview({ sessionId, questions }) {
       setLoadingNext(true);
       console.log(`[Frontend] Submitting answer for session: ${sessionId}`);
 
-      await fetch("http://127.0.0.1:8000/submit-answer", {
+      // 🔄 Updated to use Render URL
+      await fetch(`${API_BASE_URL}/submit-answer`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -98,7 +102,8 @@ function Interview({ sessionId, questions }) {
     console.log(`[Frontend] Requesting next question. Next index should be: ${index + 1}`);
     
     try {
-      const res = await fetch("http://127.0.0.1:8000/next-question", {
+      // 🔄 Updated to use Render URL
+      const res = await fetch(`${API_BASE_URL}/next-question`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -130,7 +135,8 @@ function Interview({ sessionId, questions }) {
     console.log(`[Frontend] Preparing to send feedback request for session: ${sessionId}`);
     
     try {
-      const res = await fetch("http://127.0.0.1:8000/generate-feedback", {
+      // 🔄 Updated to use Render URL
+      const res = await fetch(`${API_BASE_URL}/generate-feedback`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ session_id: sessionId })
