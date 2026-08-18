@@ -84,23 +84,7 @@ def interview_question_node(state: JDState) -> JDState:
     })
     
     return {"questions": result.questions}
-'''
-def feedback_node(state: JDState) -> JDState:
-    prompt = ChatPromptTemplate.from_messages([
-        ("system", "You are a Senior Hiring Manager. Evaluate the interview answers strictly and fairly."),
-        ("human", "Role: {role}\nExperience: {experience_level}\nQuestions: {questions}\nAnswers: {user_answers}\nProvide feedback strictly in the defined schema.")
-    ])
-    chain = prompt | feedback_llm
-    
-    result = chain.invoke({
-        "role": state["role"],
-        "experience_level": state["experience_level"],
-        "questions": state["questions"],
-        "user_answers": state["user_answers"]
-    })
-    
-    return {"feedback": result.model_dump()}'''
-    
+
 def feedback_node(state: JDState) -> JDState:
     # UPDATED PROMPT: Strict instructions to fix the 17% Accuracy issue
     prompt = ChatPromptTemplate.from_messages([
