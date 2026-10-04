@@ -30,7 +30,7 @@ class InterviewFeedback(BaseModel):
 # -------------------------------
 # 2. LLM Setup
 # -------------------------------
-llm = ChatGroq(model="openai/gpt-oss-120b")
+llm = ChatGroq(model="openai/gpt-oss-20b")
 llm1 = ChatGroq(model="openai/gpt-oss-20b")
 jd_llm = llm.with_structured_output(JDAnalysis)
 questions_llm = llm.with_structured_output(InterviewQuestions)
