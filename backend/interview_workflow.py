@@ -72,7 +72,7 @@ def jd_analyzer_node(state: JDState) -> JDState:
 
 def interview_question_node(state: JDState) -> JDState:
     prompt = ChatPromptTemplate.from_messages([
-        ("system", "You are a senior technical interviewer. Generate exactly 2 interview questions."),
+        ("system", "You are a senior technical interviewer. Generate exactly 3 interview questions."),
         ("human", "Role: {role}\nExperience: {experience_level}\nSkills: {required_skills}")
     ])
     chain = prompt | questions_llm
